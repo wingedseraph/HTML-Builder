@@ -8,11 +8,8 @@ STREAM.on('data', (chunk) => {
   arg += chunk;
 });
 
-STREAM.on('end', (code) => {
+STREAM.on('end', () => {
   console.log(arg);
-  // console.log('stream closed');
-  console.log(code);
-  // STREAM.close();
 });
 
 STREAM.on('error', (error) => {
