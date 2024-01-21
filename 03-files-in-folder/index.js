@@ -1,5 +1,3 @@
-// TODO: without Sync or SetTimeout
-
 const FS = require('fs');
 const PATH = require('path');
 
