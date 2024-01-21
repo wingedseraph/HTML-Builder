@@ -7,16 +7,14 @@ const FOLDERPATH = PATH.join(__dirname, 'secret-folder');
 
 FS.readdir(FOLDERPATH, (err, files) => {
   if (err) {
-    console.error(err);
-    return;
+    return console.error(err);
   }
 
   const PROCCESSFILE = (fileName) => {
     const FILEPATH = PATH.join(FOLDERPATH, fileName);
     FS.stat(FILEPATH, (statErr, fileStats) => {
       if (statErr) {
-        console.error(statErr.message);
-        return;
+        return console.error(statErr.message);
       }
 
       console.log(
@@ -31,8 +29,7 @@ FS.readdir(FOLDERPATH, (err, files) => {
     const FILEPATH = PATH.join(FOLDERPATH, file);
     FS.stat(FILEPATH, (statErr, stats) => {
       if (statErr) {
-        console.error(statErr.message);
-        return;
+        return console.error(statErr.message);
       }
 
       if (stats.isFile()) {
