@@ -1,16 +1,16 @@
 const FS = require('fs');
 const PATH = require('path');
 
-const FOLDERPATH = PATH.join(__dirname, 'secret-folder');
+const FOLDER_PATH = PATH.join(__dirname, 'secret-folder');
 
-FS.readdir(FOLDERPATH, (err, files) => {
+FS.readdir(FOLDER_PATH, (err, files) => {
   if (err) {
     return console.error(err);
   }
 
-  const PROCCESSFILE = (fileName) => {
-    const FILEPATH = PATH.join(FOLDERPATH, fileName);
-    FS.stat(FILEPATH, (statErr, fileStats) => {
+  const PROCCESS_FILE = (fileName) => {
+    const FILE_PATH = PATH.join(FOLDER_PATH, fileName);
+    FS.stat(FILE_PATH, (statErr, fileStats) => {
       if (statErr) {
         return console.error(statErr.message);
       }
@@ -24,14 +24,14 @@ FS.readdir(FOLDERPATH, (err, files) => {
   };
 
   files.forEach((file) => {
-    const FILEPATH = PATH.join(FOLDERPATH, file);
+    const FILEPATH = PATH.join(FOLDER_PATH, file);
     FS.stat(FILEPATH, (statErr, stats) => {
       if (statErr) {
         return console.error(statErr.message);
       }
 
       if (stats.isFile()) {
-        PROCCESSFILE(file);
+        PROCCESS_FILE(file);
       }
     });
   });
