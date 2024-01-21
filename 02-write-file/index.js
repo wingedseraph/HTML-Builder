@@ -1,8 +1,8 @@
 const FS = require('fs');
 const READLINE = require('readline');
 
-const FILEPATH = './02-write-file/output.txt';
-const WRITESTREAM = FS.createWriteStream(FILEPATH, { flags: 'a' });
+const FILE_PATH = './02-write-file/output.txt';
+const WRITE_STREAM = FS.createWriteStream(FILE_PATH, { flags: 'a' });
 
 const RL = READLINE.createInterface({
   input: process.stdin,
@@ -12,20 +12,20 @@ const RL = READLINE.createInterface({
 
 RL.on('line', (input) => {
   if (input.toLowerCase() === 'exit') {
-    WRITESTREAM.end();
+    WRITE_STREAM.end();
     RL.close();
     console.log('\nprocess terminated by user (exit). goodbye!');
   } else {
-    WRITESTREAM.write(input + '\n');
+    WRITE_STREAM.write(input + '\n');
   }
 });
 
-WRITESTREAM.on('close', () => {
+WRITE_STREAM.on('close', () => {
   RL.close();
 });
 
 process.on('SIGINT', () => {
-  WRITESTREAM.end();
+  WRITE_STREAM.end();
   console.log('\nprocess terminated by user (ctrl + c). goodbye!');
   process.exit();
 });
