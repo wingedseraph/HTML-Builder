@@ -1,8 +1,8 @@
 const PATH = require('path');
 const FS = require('fs');
 
-const FILESPATH = PATH.join(__dirname, 'files');
-const COPYFILEPATH = PATH.join(__dirname, 'files-copy');
+const FILES_PATH = PATH.join(__dirname, 'files');
+const COPY_FILE_PATH = PATH.join(__dirname, 'files-copy');
 const ASCII = `
     _,--'       "-.
   ,'.  .            \\
@@ -18,12 +18,12 @@ const ASCII = `
       .\\\\)\`;:,|\\'/(
        \` \`\`(\`,\``;
 
-FS.readdir(FILESPATH, (error, files) => {
+FS.readdir(FILES_PATH, (error, files) => {
   console.log(files);
   isErrorMessage(error);
 
-  FS.mkdir(COPYFILEPATH, { recursive: true }, isErrorMessage);
-  FS.readdir(COPYFILEPATH, (error, copyFiles) => {
+  FS.mkdir(COPY_FILE_PATH, { recursive: true }, isErrorMessage);
+  FS.readdir(COPY_FILE_PATH, (error, copyFiles) => {
     if (copyFiles) {
       isErrorMessage(error);
 
@@ -35,15 +35,15 @@ FS.readdir(FILESPATH, (error, files) => {
       });
 
       filesArray.forEach((file) => {
-        FS.unlink(PATH.join(COPYFILEPATH, file), isErrorMessage);
+        FS.unlink(PATH.join(COPY_FILE_PATH, file), isErrorMessage);
       });
     }
   });
 
   files.forEach((file) => {
     FS.copyFile(
-      PATH.join(FILESPATH, file),
-      PATH.join(COPYFILEPATH, file),
+      PATH.join(FILES_PATH, file),
+      PATH.join(COPY_FILE_PATH, file),
       isErrorMessage,
     );
   });
