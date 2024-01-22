@@ -20,12 +20,12 @@ const ASCII = `
 
 FS.readdir(FILES_PATH, (error, files) => {
   console.log(files);
-  isErrorMessage(error);
+  handleError(error);
 
-  FS.mkdir(COPY_FILE_PATH, { recursive: true }, isErrorMessage);
+  FS.mkdir(COPY_FILE_PATH, { recursive: true }, handleError);
   FS.readdir(COPY_FILE_PATH, (error, copyFiles) => {
     if (copyFiles) {
-      isErrorMessage(error);
+      handleError(error);
 
       let filesArray = copyFiles;
       // console.log('DEBUG::filesArray:', filesArray);
@@ -35,7 +35,7 @@ FS.readdir(FILES_PATH, (error, files) => {
       });
 
       filesArray.forEach((file) => {
-        FS.unlink(PATH.join(COPY_FILE_PATH, file), isErrorMessage);
+        FS.unlink(PATH.join(COPY_FILE_PATH, file), handleError);
       });
     }
   });
@@ -44,14 +44,14 @@ FS.readdir(FILES_PATH, (error, files) => {
     FS.copyFile(
       PATH.join(FILES_PATH, file),
       PATH.join(COPY_FILE_PATH, file),
-      isErrorMessage,
+      handleError,
     );
   });
 
   console.log(ASCII, 'new folder sprouted: Musholder 🍄');
 });
 
-function isErrorMessage(error) {
+function handleError(error) {
   if (error) {
     return console.error(error.message);
   }

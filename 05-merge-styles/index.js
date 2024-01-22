@@ -21,8 +21,11 @@ const ASCII = `
 `;
 
 FS.readdir(STYLES_FOLDER, { withFileTypes: true }, (error, files) => {
-  isErrorMessage(error);
+  const DATA = [];
   const FILES = [];
+
+  let data = '';
+  handleError(error);
   files.forEach((file) => {
     if (
       file.isFile() &&
@@ -31,10 +34,8 @@ FS.readdir(STYLES_FOLDER, { withFileTypes: true }, (error, files) => {
       FILES.push(file.name);
     }
   });
-  const DATA = [];
   FILES.forEach((file, index) => {
     const INPUT = FS.createReadStream(PATH.join(STYLES_FOLDER, file), 'utf-8');
-    let data = '';
     INPUT.on('data', (chunk) => (data += chunk));
     INPUT.on('error', (error) => console.error(error.message));
     INPUT.on('end', () => {
@@ -45,14 +46,14 @@ FS.readdir(STYLES_FOLDER, { withFileTypes: true }, (error, files) => {
         const BUNDLE_PATH = PATH.join(PROJECT_FOLDER, 'bundle.css');
 
         FS.writeFile(BUNDLE_PATH, NEW_DATA, (error) => {
-          isErrorMessage(error);
+          handleError(error);
           console.log(ASCII + 'teddy merge');
         });
       }
     });
   });
 });
-function isErrorMessage(error) {
+function handleError(error) {
   if (error) {
     return console.error(error.message);
   }
