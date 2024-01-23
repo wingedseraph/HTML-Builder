@@ -16,9 +16,9 @@ FS.readdir(FOLDER_PATH, (err, files) => {
       }
 
       console.log(
-        `${fileName.replace(/\.[^/.]+$/, '')} - ${PATH.extname(fileName).slice(
-          1,
-        )} - ${(fileStats.size / 1024).toFixed(3)}kb`,
+        `${PATH.parse(fileName).name} - ${PATH.extname(fileName).slice(1)} - ${(
+          fileStats.size / 1024
+        ).toFixed(3)}kb`,
       );
     });
   };
