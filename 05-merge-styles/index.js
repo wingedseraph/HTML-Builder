@@ -17,14 +17,13 @@ const ASCII = `
 |  \\_.--\`~~' \`.  )
 |             ;-'
 \`.__,.      ,'
-      \`----'  
+      \`----'
 `;
 
 FS.readdir(STYLES_FOLDER, { withFileTypes: true }, (error, files) => {
   const DATA = [];
   const FILES = [];
 
-  let data = '';
   handleError(error);
   files.forEach((file) => {
     if (
@@ -35,11 +34,12 @@ FS.readdir(STYLES_FOLDER, { withFileTypes: true }, (error, files) => {
     }
   });
   FILES.forEach((file, index) => {
+    // let data = '';
     const INPUT = FS.createReadStream(PATH.join(STYLES_FOLDER, file), 'utf-8');
-    INPUT.on('data', (chunk) => (data += chunk));
+    INPUT.on('data', (chunk) => DATA.push(chunk));
     INPUT.on('error', (error) => console.error(error.message));
     INPUT.on('end', () => {
-      DATA.push(data);
+      // DATA.push(data);
 
       if (FILES.length - 1 === index) {
         const NEW_DATA = DATA.join('');

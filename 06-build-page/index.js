@@ -92,13 +92,13 @@ fs.readdir(STYLES_FOLDER, { withFileTypes: true }, (err, files) => {
     }
   });
 
-  let data = '';
+  // let data = '';
   FILES.forEach((file, index) => {
     const INPUT = fs.createReadStream(PATH.join(STYLES_FOLDER, file), 'utf-8');
-    INPUT.on('data', (chunk) => (data += chunk));
+    INPUT.on('data', (chunk) => DATA.push(chunk));
     INPUT.on('error', (err) => console.error(err));
     INPUT.on('end', () => {
-      DATA.push(data);
+      // DATA.push(data);
       if (FILES.length - 1 === index) {
         const NEW_DATA = DATA.join('');
         const BUNDLE_PATH = PATH.join(PROJECT_FOLDER, 'style.css');
