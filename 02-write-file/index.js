@@ -1,7 +1,9 @@
 const FS = require('fs');
 const READLINE = require('readline');
+const PATH = require('path');
 
-const FILE_PATH = './02-write-file/output.txt';
+// const FILE_PATH = './02-write-file/output.txt';
+const FILE_PATH = PATH.join(__dirname, 'output.txt');
 const WRITE_STREAM = FS.createWriteStream(FILE_PATH, { flags: 'a' });
 
 const RL = READLINE.createInterface({
